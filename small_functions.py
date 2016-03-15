@@ -133,7 +133,25 @@ def histogram(title):
 	plt.title(title)
 	plt.xlabel('Spectral Type')
 	plt.savefig('/Users/paigegiorla/Code/Python/BDNYC/TDwarfplotting/'+'{}'.format(title)+ '.pdf')	
+
+def average_chisq(data):
+	''' return average chisq per spectral type from data = [sptlist,chilist]
 	
+			Parameters:
+				data : [x,y] where x and y are lists
+	'''			
+	from collections import defaultdict
+
+	D = defaultdict(list)
+	n = zip(*data)
+	for spt,chi in n:
+		D[spt].append(chi)
+  
+	for key,value in D.items():
+		D[key] = np.average(value)
+	arr = [D.keys(),D.values()]   	 
+	return D,arr 	 
+  	
 def bin_by(x, y, half=True):
     """
     Bin x by y.
